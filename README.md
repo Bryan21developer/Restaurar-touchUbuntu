@@ -10,45 +10,43 @@ El touchpad funciona en Windows pero no responde en Ubuntu, aunque el sistema lo
 
 ### 1. Abrir el archivo de configuración del GRUB
 
-```bash2. Editar la línea de opciones del kernel
-Busca esta línea:
-
-text
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+bash
+```
+sudo nano /etc/default/grub
+```
+2. Editar la línea de opciones del kernel
+Busca esta línea: ```GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"```
 Y cámbiala por esta:
-
-text
+```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash psmouse.synaptics_intertouch=1"
-3. Guardar y cerrar el archivo
-Presiona Ctrl + O para guardar.
-
-Presiona Enter para confirmar.
-
-Presiona Ctrl + X para salir del editor.
+```
 
 4. Actualizar la configuración del GRUB
-bash
+ ```
 sudo update-grub
+```
 5. Reiniciar el sistema
-bash
+```
 sudo reboot
+```
 🔍 Verificación
 Después del reinicio, puedes verificar que el parámetro esté activo con:
 
-bash
-cat /proc/cmdline
-También puedes comprobar que el touchpad esté habilitado con:
 
-bash
+🔄 Cambiar de sesión a Xorg (si estás usando Wayland)
+Algunas herramientas como xinput no funcionan correctamente bajo Wayland. Para cambiar a Xorg:
+
+Cierra sesión desde el menú de usuario.
+
+En la pantalla de inicio de sesión, haz clic en el ícono de engranaje (⚙️) en la esquina inferior derecha.
+
+Selecciona Ubuntu en Xorg.
+
+Inicia sesión normalmente.
+cat /proc/cmdline
+
+También puedes comprobar que el touchpad esté habilitado con:
+```
 xinput list
 xinput list-props "SynPS/2 Synaptics TouchPad"
-💡 Notas adicionales
-Este método ha sido probado en Ubuntu 22.04 y 24.04 con laptops Toshiba Satellite S40-A.
-
-Si el touchpad sigue sin funcionar, considera probar una distribución como Linux Mint o Fedora, que a veces tienen mejor soporte para hardware específico.
-
-Puedes instalar herramientas como gnome-tweaks para configurar gestos, clics y desplazamiento:
-
-bash
-sudo apt install gnome-tweaks
-sudo nano /etc/default/grub
+```
